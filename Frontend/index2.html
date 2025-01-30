@@ -26,8 +26,8 @@
             <h1 class="text-2xl font-bold cursor-pointer" onclick="showPage('home')">AnzenTIX</h1>
             <div class="flex items-center space-x-4">
                 <a href="#" onclick="showPage('home')" class="hover:text-purple-200">Home</a>
-                <a href="#" onclick="showPage('events')" class="hover:text-purple-200">Events</a>
-                <a href="#" onclick="showPage('orders')" class="hover:text-purple-200">My Orders</a>
+                <a href="#" onclick="showPage('events')" class="hover:text-purple-200">Organized Events</a>
+                <a href="#" onclick="showPage('orders')" class="hover:text-purple-200">My Events</a>
                 <button id="loginBtn" onclick="showPage('login')" class="bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-full transition duration-300">Login</button>
                 <button id="signupBtn" onclick="showPage('signup')" class="bg-white text-purple-700 hover:bg-purple-200 px-4 py-2 rounded-full transition duration-300">Sign Up</button>
             </div>
@@ -48,22 +48,7 @@
             </div>
         </header>
 
-        <main class="container mx-auto mt-12 p-4">
-            <section id="featuredEvents" class="mb-12">
-                <h3 class="text-2xl font-bold mb-6">Featured Events</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="featuredEventsGrid"></div>
-            </section>
-
-            <section id="categories" class="mb-12">
-                <h3 class="text-2xl font-bold mb-6">Browse by Category</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="categoriesGrid"></div>
-            </section>
-
-            <section id="upcomingEvents" class="mb-12">
-                <h3 class="text-2xl font-bold mb-6">Upcoming Events</h3>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="upcomingEventsGrid"></div>
-            </section>
-        </main>
+        
     </div>
 
     <div id="events" class="page">
@@ -75,10 +60,35 @@
 
     <div id="orders" class="page">
         <div class="container mx-auto mt-12 p-4">
-            <h2 class="text-3xl font-bold mb-6">My Orders</h2>
+            <h2 class="text-3xl font-bold mb-6">My Events</h2>
             <div id="ordersGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
     </div>
+
+        <div class="container mx-auto mt-12 p-4">
+            <h2 class="text-3xl font-bold mb-6">Organize a New Event</h2>
+            <form id="organizeEventForm">
+                <div class="mb-4">
+                    <label for="eventName" class="block text-gray-700 text-sm font-bold mb-2">Event Name</label>
+                    <input type="text" id="eventName" name="eventName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div class="mb-4">
+                    <label for="eventSymbol" class="block text-gray-700 text-sm font-bold mb-2">Event Symbol</label>
+                    <input type="text" id="eventSymbol" name="eventSymbol" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div class="mb-4">
+                    <label for="ticketPrice" class="block text-gray-700 text-sm font-bold mb-2">Ticket Price ($)</label>
+                    <input type="number" id="ticketPrice" name="ticketPrice" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div class="mb-4">
+                    <label for="maxTickets" class="block text-gray-700 text-sm font-bold mb-2">Max Tickets</label>
+                    <input type="number" id="maxTickets" name="maxTickets" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <button type="submit" class="w-full bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-600 transition duration-300">Create Event</button>
+            </form>
+        </div>
+    </div>
+
 
     <div id="login" class="page">
         <div class="min-h-screen flex items-center justify-center bg-purple-100">
@@ -135,8 +145,8 @@
                     <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
                     <ul>
                         <li><a href="#" onclick="showPage('home')" class="hover:text-white">Home</a></li>
-                        <li><a href="#" onclick="showPage('events')" class="hover:text-white">Events</a></li>
-                        <li><a href="#" onclick="showPage('orders')" class="hover:text-white">My Orders</a></li>
+                        <li><a href="#" onclick="showPage('events')" class="hover:text-white">Organized Events</a></li>
+                        <li><a href="#" onclick="showPage('orders')" class="hover:text-white">My Events</a></li>
                         <li><a href="#" class="hover:text-white">Contact Us</a></li>
                     </ul>
                 </div>
@@ -224,7 +234,7 @@
                         <h4 class="font-bold text-xl mb-2">${event.name}</h4>
                         <p class="text-purple-600">${event.date}</p>
                         <p class="text-gray-600 mb-4">$${event.price}</p>
-                        <button class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full transition duration-300 buyTicketBtn" data-event-id="${event.id}">Buy Ticket</button>
+                        <button class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full transition duration-300 buyTicketBtn" data-event-id="${event.id}">Sell Ticket</button>
                     </div>
                 `;
                 container.appendChild(eventCard);
@@ -330,7 +340,7 @@
                     <h4 class="font-bold text-xl mb-2">${order.eventName}</h4>
                     <p class="text-purple-600 mb-2">Purchase Date: ${new Date(order.purchaseDate).toLocaleDateString()}</p>
                     <p class="text-gray-600 mb-4">Unique Code: ${order.uniqueCode}</p>
-                   <button class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full transition duration-300 viewTicketBtn" onclick="downloadTicket()">View Ticket</button>
+                   <button class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full transition duration-300 viewTicketBtn" data-ticket-id="${order.id}">View Ticket</button>
                 `;
                 ordersGrid.appendChild(orderCard);
             });
@@ -339,7 +349,19 @@
                 btn.addEventListener('click', showTicketModal);
             });
         }
+        document.getElementById('organizeEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const eventName = document.getElementById('eventName').value;
+            const eventSymbol = document.getElementById('eventSymbol').value;
+            const ticketPrice = document.getElementById('ticketPrice').value;
+            const maxTickets = document.getElementById('maxTickets').value;
 
+            // Here you would typically send this data to your smart contract
+            console.log('Event Organized:', { eventName, eventSymbol, ticketPrice, maxTickets });
+
+            alert('Event organized successfully!');
+            showPage('home'); // Redirect to home or another page
+        });
         // Show ticket modal
         function showTicketModal(e) {
             const ticketId = e.target.getAttribute('data-ticket-id');
@@ -388,15 +410,6 @@
             ctx.fillText(User: ${ticket.username}, 20, 70);
             ctx.fillText(Code: ${ticket.uniqueCode}, 20, 100);
 
-            // Add QR code
-            const qrCodeImg = qrcodeContainer.querySelector('img');
-            ctx.drawImage(qrCodeImg, 75, 150, 150, 150);
-
-            // Create download link
-            const downloadLink = document.createElement('a');
-            downloadLink.download = ticket_${ticket.uniqueCode}.png;
-            downloadLink.href = canvas.toDataURL('image/png');
-            downloadLink.click();
         }
 
         // Close ticket modal
